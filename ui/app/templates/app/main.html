@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Файловый сервис</title>
+    <link rel="stylesheet" href="{% static 'app/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'icon.svg' %}" alt="Лого" width="30" height="30" class="d-inline-block align-top">
+            ФайлСервис
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row g-4">
+        <div class="col-md-12 text-center">
+            <div class="card shadow-sm text-center p-4" data-bs-toggle="modal"
+                 data-bs-target="#fullProcessModal">
+                <div class="card-body">
+                    <h5 class="card-title">🚀 Запуск бизнес-процесса</h5>
+                    <p class="card-text">Полный процесс обработки файлов.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm text-center p-4" data-bs-toggle="modal"
+                 data-bs-target="#splitFileModal">
+                <div class="card-body">
+                    <h5 class="card-title">📂 Разделить файлы</h5>
+                    <p class="card-text">Разделите загруженные файлы по частям.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm text-center p-4" data-bs-toggle="modal"
+                 data-bs-target="#getTextModal">
+                <div class="card-body">
+                    <h5 class="card-title">📝 Распознать текст</h5>
+                    <p class="card-text">Извлеките текст из файлов.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm text-center p-4" data-bs-toggle="modal"
+                 data-bs-target="#nerXmlModal">
+                <div class="card-body">
+                    <h5 class="card-title">📜 NER в XML</h5>
+                    <p class="card-text">Преобразование текста в XML с выделением сущностей.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm text-center p-4" data-bs-toggle="modal"
+                 data-bs-target="#gptModelModal">
+                <div class="card-body">
+                    <h5 class="card-title">🤖 GPT модель</h5>
+                    <p class="card-text">Обработка текста с помощью GPT.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальные окна -->
+{% for operation, form_id, form_title, form_object in forms_data %}
+    <div class="modal fade" id="{{ form_id }}" tabindex="-1" aria-labelledby="{{ form_id }}Label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="{{ form_id }}Label">{{ form_title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data" class="ajax-form" data-modal="{{ form_id }}">
+                        {% csrf_token %}
+                        {{ form_object.as_p }}
+                        <input type="hidden" name="operation" value="{{ operation }}">
+                        <button type="submit" class="btn btn-primary w-100 send-button">Отправить</button>
+                        <button class="btn btn-primary w-100 loading-button" type="button" disabled
+                                style="display: none;">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Обработка...
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+<footer class="footer">
+    <p>&copy; 2025 ФайлСервис. Все права защищены.</p>
+    <p>Контакты: <a href="mailto:amirdianov@gmail.com" class="text-light">support@file-service.com</a></p>
+</footer>
+
+<script src="{% static 'app/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'app/js/popper.min.js' %}"></script>
+<script src="{% static 'app/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'app/js/main.js' %}"></script>
+
+</body>
+</html>

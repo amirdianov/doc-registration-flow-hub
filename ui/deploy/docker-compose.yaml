@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    image: ui:latest
+    ports:
+      - "8000:8000"
+    build:
+      dockerfile: deploy/Dockerfile
+      context: ..
+    volumes:
+      - media:/ui/media
+      - ../../ml:/ml
+    environment:
+      - DEBUG=${DEBUG:-False}
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - AWS_ACCESS_KEY_ID=admin
+      - AWS_SECRET_ACCESS_KEY=password
+      - MLFLOW_S3_ENDPOINT_URL=http://minio:9000
+    networks:
+      - my_network
+volumes:
+  media:
+  static:
+
+networks:
+  my_network:
+    external: true

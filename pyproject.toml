@@ -1,0 +1,49 @@
+[project]
+name = "ml-project"
+version = "0.1.0"
+description = """
+Программное решение для комплексной автоматизации процессов обработки и
+регистрации входящей корреспонденции с возможностью автоматизированного
+принятия бизнес-решений и интеграцией с системой 1С.
+"""
+authors = [
+    { name = "a.diyanov", email = "amirdianov@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.11"
+keywords = [
+    "automation",
+    "document-processing",
+    "1c-integration",
+    "ai"
+]
+
+dependencies = [
+    "django",
+    "torch",
+    "torchvision",
+    "torchaudio",
+    "pdf2image",
+    "img2pdf",
+    "numpy",
+    "mlflow",
+    "brom",
+    "openai",
+    "python-dotenv",
+    "spacy",
+    "natasha",
+    "opencv-python",
+    "easyocr",
+    "PyPDF2",
+    "Pillow",
+    "yargy",
+    "transformers",
+    "boto3"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
